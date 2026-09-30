@@ -1,13 +1,42 @@
-.idea
-.idea/*
-.vscode/*
-.vscode
-# Logs
-log
-logs
-checkpoint*
-*.log
-venv/*
+# ===== IDE / 编辑器 =====
+.idea/
+.vs/
+.vscode/
 
-__pycache__
-models/*
+# ===== Python =====
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+
+# ===== 虚拟环境 =====
+venv/
+
+# ===== 数据集 / 特征缓存（本地生成，体积大）=====
+datasets/
+ast_cache/
+_smoke_cache/
+_smoke_ckpt/
+
+# ===== 训练与推理产物（含全部模型文件，一律不提交）=====
+checkpoints/
+log/
+logs/
+*.log
+
+# ===== 模型权重 =====
+*.pt
+*.pth
+*.ckpt
+*.bin
+*.h5
+*.safetensors
+
+# ===== 转换后的推理模型 =====
+*.onnx
+*.engine
+*.plan
+*.trt
+*.tflite
+*.mnn
+*.nb

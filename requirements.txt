@@ -1,16 +1,33 @@
-opencv-python==4.5.4.60
-pillow==10.3.0
+# BXC_AudioNet 依赖清单
+# ----------------------------------------------------------------------------
+# Python 版本：3.10 ~ 3.12（已在 Windows Python 3.12.3 验证；torch 无 3.13 轮子）
+#
+# ⚠️ torch / torchaudio 必须装 CUDA 版（cu121，适配 RTX 30 / 40 系），不能装国内镜像
+#    默认发的 CPU 版（约 198MB，版本号同样是 2.2.0，pip 会误判「已满足」而不换轮子）。
+#    这两个包请走 PyTorch 官方 CUDA 源、用带 +cu121 的精确版本号强制安装：
+#      python -m pip install --force-reinstall --no-deps torch==2.2.0+cu121 torchaudio==2.2.0+cu121 --index-url https://download.pytorch.org/whl/cu121
+#    装完确认 torch.cuda.is_available() 为 True。详见 README「环境安装」。
+#
+# 其余依赖走国内镜像：-i https://pypi.tuna.tsinghua.edu.cn/simple
+# ----------------------------------------------------------------------------
+
+# ---- 核心张量与模型 ----
 numpy==1.26.4
-requests==2.31.0
-torch==2.1.2
-torchvision==0.16.2
-torchaudio==2.1.2
+torch==2.2.0
+torchaudio==2.2.0
+
+# ---- 训练循环 ----
 tqdm==4.67.1
-matplotlib==3.10.3
-scikit-learn==1.7.0
-soundfile==0.13.1 # 很重要，作为torchaudio读取音频文件的后端，否则torchaudio可能无法正常安装
-librosa==0.11.0
-openvino==2024.3.0
-openvino-dev==2024.3.0
-onnxruntime==1.19.0
+
+# ---- 音频读取（torchaudio 读音频文件的后端，缺失会导致安装/运行异常）----
+soundfile==0.13.1
+
+# ---- 模型导出 / INT8 量化 / 离线推理部署 ----
 onnx==1.16.1
+onnxruntime==1.19.0
+
+# ---- AST 预训练模型加载 / 特征提取器 / API 服务 ----
+transformers==4.39.3
+Flask==3.0.3
+scipy==1.12.0
+requests==2.32.3
